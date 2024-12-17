@@ -11,7 +11,7 @@ requires = ["hatchling"]
 ################################################################################
 
 [project]
-name = "mypackage_lwasser"
+name = "pyosDemo"
 
 version = "0.1.0"
 
