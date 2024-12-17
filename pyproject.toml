@@ -1,0 +1,103 @@
+################################################################################
+# Build Configuration
+################################################################################
+
+[build-system]
+build-backend = "hatchling.build"
+requires = ["hatchling"]
+
+################################################################################
+# Project Configuration
+################################################################################
+
+[project]
+name = "mypackage_lwasser"
+
+version = "0.1.0"
+
+description = "A package that adds numbers together."
+authors = [
+    { name = "pyOpenSci", email = "pyopensci@pyopensci.org" },
+]
+license = "MIT"
+readme = {"file" = "README.md", "content-type" = "text/markdown"}
+requires-python = ">=3.10"
+# Please consult https://pypi.org/classifiers/ for a full list.
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering",
+]
+# TODO: add keywords
+keywords = []
+# TODO: add dependencies
+dependencies = []
+
+[project.urls]
+Documentation = "https://mypackage.readthedocs.io"
+Download = "https://pypi.org/project/mypackage/#files"
+
+[project.optional-dependencies]
+dev = [
+    "hatch",
+    "pre-commit",
+]
+
+################################################################################
+# Tool Configuration
+################################################################################
+
+[tool.hatch.build]
+only-packages = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/mypackage"]
+
+[tool.hatch.publish.index.repos.test]
+url = "https://test.pypi.org/legacy/"
+user = "__token__"
+auth = "env:HATCH_INDEX_AUTH"
+
+
+# Create Hatch enviroment 
+
+[tool.hatch.envs.test]
+description = """Environment that runs the test suite"""
+extra-dependencies = [
+    "pytest",
+    "pytest-cov",
+]
+
+[[tool.hatch.envs.test.matrix]]
+python = ["3.10", "3.11"]
+
+
+[tool.hatch.envs.test.scripts]
+run_test_coverage = "pytest {args:--cov=mypackage --cov-report=term-missing}"
+run_test = "pytest"
+
+
+[tool.hatch.envs.format]
+description = """Environment that runs the code formatters."""
+extra-dependencies = [
+    "ruff",
+    "isort",
+]
+
+[tool.hatch.envs.format.scripts]
+format_code = [
+    "ruff .",
+    "black ."
+]
+
+
+
+
